@@ -1,29 +1,70 @@
 import React from 'react';
-import { Button, View, Text } from 'react-native';
+import { StyleSheet, TextInput, Button, View, Text } from 'react-native';
 import { StackNavigator } from 'react-navigation'; // Version can be specified in package.json
 
-class HomeScreen extends React.Component {
+class SignUp extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { first: '',
+                    email: '',
+                    password: ''};
+  }
   render() {
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Home Screen</Text>
+        <Text>Sign Up</Text>
+          <TextInput
+            style={signUpStyle.container}
+            placeholder="First Name"
+            onChangeText={(first) => this.setState({first})}
+            value={this.state.first}
+          />
+          <TextInput
+            style={signUpStyle.container}
+            placeholder="Email"
+            onChangeText={(email) => this.setState({email})}
+            value={this.state.email}
+          />
+          <TextInput
+            style={signUpStyle.container}
+            placeholder="Password"
+            onChangeText={(password) => this.setState({password})}
+            value={this.state.password}
+          />
         <Button
-          title="Go to Details"
-          onPress={() => this.props.navigation.navigate('Details')}
+          title="Sign Up"
+          onPress={() => this.props.navigation.navigate('Login')}
         />
       </View>
     );
   }
 }
 
-class DetailsScreen extends React.Component {
+class Login extends React.Component {
+  constructor(props) {
+  super(props);
+  this.state = {  email: '',
+                  password: ''};
+}
   render() {
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Details Screen</Text>
+        <Text>Login</Text>
+          <TextInput
+            style={signUpStyle.container}
+            placeholder="Email"
+            onChangeText={(email) => this.setState({email})}
+            value={this.state.email}
+          />
+          <TextInput
+            style={signUpStyle.container}
+            placeholder="Password"
+            onChangeText={(password) => this.setState({password})}
+            value={this.state.password}
+          />
         <Button
-          title="Go to Details... again"
-          onPress={() => this.props.navigation.navigate('Details')}
+          title="Login"
+          onPress={() => this.props.navigation.navigate('Login')}
         />
         <Button
           title="Go back"
@@ -36,15 +77,15 @@ class DetailsScreen extends React.Component {
 
 const RootStack = StackNavigator(
   {
-    Home: {
-      screen: HomeScreen,
+    SignUp: {
+      screen: SignUp,
     },
-    Details: {
-      screen: DetailsScreen,
+    Login: {
+      screen: Login,
     },
   },
   {
-    initialRouteName: 'Home',
+    initialRouteName: 'SignUp',
   }
 );
 
@@ -53,3 +94,9 @@ export default class App extends React.Component {
     return <RootStack />;
   }
 }
+
+const signUpStyle = StyleSheet.create({
+  container: {
+    height: 40, borderColor: 'black', borderWidth: 1,
+  },
+});
